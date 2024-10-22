@@ -100,3 +100,14 @@ function renderMovies(movies) {
 // await b()
 // await c()
 // await d()
+
+setTimeout(() => {
+  console.log('time')
+})
+
+new Promise(resolve => {
+  console.log('promise')
+  resolve()
+})
+
+// promise 다음 time 실행
