@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Modal from '../../components/Modal'
 
 export interface Movie {
   Actors: string
   Title: string
   Plot: string
+  Poster: string
 }
 export default function MovieDetails() {
   const { movieId } = useParams()
@@ -20,9 +22,17 @@ export default function MovieDetails() {
     fetchMovieDetils()
   }, [])
   return (
-    <>
-      <h1>{movie?.Title}</h1>
-      <p>{movie?.Plot}</p>
-    </>
+    <Modal>
+      {movie && (
+        <>
+          <h1>{movie?.Title}</h1>
+          <img
+            src={movie?.Poster}
+            alt={movie?.Title}
+          />
+          <p>{movie?.Plot}</p>
+        </>
+      )}
+    </Modal>
   )
 }

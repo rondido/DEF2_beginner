@@ -4,6 +4,9 @@ import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
 import MovieDetails from './pages/MovieDetails.tsx'
 import DefaultLayout from './layouts/Default.tsx'
+import Movies from './pages/Movies.tsx'
+import NotFound from './pages/NotFound.tsx'
+import SignIn from './pages/SignIn.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,10 +21,25 @@ const router = createBrowserRouter([
         element: <About />
       },
       {
-        path: '/movies/:movieId',
-        element: <MovieDetails />
+        path: '/movies',
+        element: <Movies />,
+        children: [
+          {
+            path: '/movies/:movieId',
+            element: <MovieDetails />
+          }
+        ]
+      },
+      {
+        path: '/signin',
+        element: <SignIn />
       }
     ]
+  },
+
+  {
+    path: '*',
+    element: <NotFound />
   }
 ])
 

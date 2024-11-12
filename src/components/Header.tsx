@@ -6,6 +6,7 @@ const navigations = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/signin', label: 'Sign in' },
+  { to: '/movies', label: 'Movies' },
   { to: '/movies/tt4154796', label: 'Endgame' }
 ]
 
@@ -14,12 +15,13 @@ const navigations = [
 export default function Header() {
   return (
     <header>
-      <nav>
+      <nav className={styles.nav}>
         {navigations.map(nav => (
           <NavLink
             to={nav.to}
             key={nav.to}
-            className={({ isActive }) => (isActive ? styles.active : '')}>
+            className={({ isActive }) => (isActive ? styles.active : '')}
+            end>
             {nav.label}
           </NavLink>
         ))}
