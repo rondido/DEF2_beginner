@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import { useMovieStore } from '../../stores/movie'
 
 export interface ReponseValue {
   Search: Movie[]
@@ -16,16 +17,11 @@ export interface Movie {
 }
 
 export default function Movies() {
-  const [searchText, setSearchText] = useState<string>('')
-  const [movies, setMovies] = useState<Movie[]>([])
-
-  async function serarchMovie() {
-    const res = await fetch(
-      `https://omdbapi.com?apikey=7035c60c&s=${searchText}`
-    )
-    const { Search } = await res.json()
-    setMovies(Search)
-  }
+  // const [searchText, setSearchText] = useState<string>('')
+  // const [movies, setMovies] = useState<Movie[]>([])
+  const searchText = useMovieStore(state => state.searchText)
+  const movies = useMovieStore(state => state.movies)
+  const searchMovies = useMovieStore(state => state.searchMovies)
 
   return (
     <>
@@ -36,7 +32,7 @@ export default function Movies() {
         onKeyDown={e => e.key === 'Enter' && serarchMovie()}
       />
 
-      <button onClick={serarchMovie}>검색</button>
+      <button onClick={() => searchMovies()}>검색</button>
       <ul>
         {movies.map(movie => (
           <li key={movie.imdbID}>

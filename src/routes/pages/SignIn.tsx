@@ -1,9 +1,17 @@
 import { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 export default function SigninPage() {
   const [id, setId] = useState<string>('')
+  const [searchParams] = useSearchParams()
   const [password, setPassword] = useState<string>('')
+  const navigate = useNavigate()
+  const callbackUrl = searchParams.get('callbackUrl')
   function SignIn() {
-    console.log(id, password)
+    if (id && password) {
+      const assessToken = 'abcxy123'
+      localStorage.setItem(assessToken, assessToken)
+      navigate(callbackUrl || '/')
+    }
   }
   return (
     <>

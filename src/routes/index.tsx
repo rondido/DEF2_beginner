@@ -7,6 +7,8 @@ import DefaultLayout from './layouts/Default.tsx'
 import Movies from './pages/Movies.tsx'
 import NotFound from './pages/NotFound.tsx'
 import SignIn from './pages/SignIn.tsx'
+import Dashboard from './pages/Dashboard.tsx'
+import { requriesAuth } from './loaders/requiresAuth.ts'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,12 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <SignIn />
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+        //loader는 dashboard 페이지 접근하기 전에 실행됨
+        loader: requriesAuth
       }
     ]
   },
