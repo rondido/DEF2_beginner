@@ -1,12 +1,6 @@
-import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { useMovieStore } from '../../stores/movie'
-
-export interface ReponseValue {
-  Search: Movie[]
-  totalResults: string
-  Response: string
-}
+import { useQuery } from '@tanstack/react-query'
 
 export interface Movie {
   Title: string
@@ -17,11 +11,24 @@ export interface Movie {
 }
 
 export default function Movies() {
-  // const [searchText, setSearchText] = useState<string>('')
-  // const [movies, setMovies] = useState<Movie[]>([])
   const searchText = useMovieStore(state => state.searchText)
-  const movies = useMovieStore(state => state.movies)
-  const searchMovies = useMovieStore(state => state.searchMovies)
+  // const movies = useMovieStore(state => state.movies)
+  // const searchMovies = useMovieStore(state => state.searchMovies)
+  const setSearchText = useMovieStore(state => state.setSearchText)
+
+  const { data: movies, refetch } = useQuery<Movie[]>({
+    queryKey: ['movies', searchText],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://omdbapi.com?apikey=7035c60c&s=${searchText}`
+      )
+      const { Search } = await res.json()
+      return Search
+    },
+    staleTime: 1000 * 60 * 60 * 24,
+    //활성화를 false를 하면 처음에 query를 실행하게 하지 마라
+    enabled: false
+  })
 
   return (
     <>
@@ -29,12 +36,12 @@ export default function Movies() {
       <input
         value={searchText}
         onChange={e => setSearchText(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && serarchMovie()}
+        onKeyDown={e => e.key === 'Enter' && refetch()}
       />
 
-      <button onClick={() => searchMovies()}>검색</button>
+      <button onClick={() => refetch()}>검색</button>
       <ul>
-        {movies.map(movie => (
+        {movies?.map(movie => (
           <li key={movie.imdbID}>
             <Link to={`/movies/${movie.imdbID}`}>{movie.Title}</Link>
           </li>
