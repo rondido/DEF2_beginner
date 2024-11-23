@@ -12,6 +12,7 @@ export interface Movie {
 export const useMovieStore = create(
   combine(
     {
+      inputText: '',
       searchText: '',
       movies: [] as Movie[]
     },
@@ -27,7 +28,11 @@ export const useMovieStore = create(
             movies: Search
           })
         },
-
+        setInputText: (text: string) => {
+          set({
+            inputText: text
+          })
+        },
         setSearchText: (text: string) => {
           set({
             searchText: text
