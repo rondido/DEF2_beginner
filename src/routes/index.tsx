@@ -8,6 +8,7 @@ import Movies from './pages/Movies.tsx'
 import NotFound from './pages/NotFound.tsx'
 import SignIn from './pages/SignIn.tsx'
 import Dashboard from './pages/Dashboard.tsx'
+import Todos from './pages/Todos.tsx'
 import { requriesAuth } from './loaders/requiresAuth.ts'
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         ]
       },
       {
+        path: '/todos',
+        element: <Todos />
+      },
+      {
         path: '/signin',
         element: <SignIn />
       },
@@ -44,7 +49,6 @@ const router = createBrowserRouter([
       }
     ]
   },
-
   {
     path: '*',
     element: <NotFound />

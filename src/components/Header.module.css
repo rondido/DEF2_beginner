@@ -1,8 +1,9 @@
 .active {
   color: aliceblue;
 }
-
+/* flex-shrink은 감소 비율을 조정할 수 있어 글자가 다음줄로 넘어가는 것을 방지할 수 있다. */
 .nav {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }

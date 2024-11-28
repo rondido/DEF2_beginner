@@ -8,7 +8,8 @@ const navigations = [
   { to: '/signin', label: 'Sign in' },
   { to: '/dashboard', label: '/dashboard' },
   { to: '/movies', label: 'Movies' },
-  { to: '/movies/tt4154796', label: 'Endgame' }
+  { to: '/movies/tt4154796', label: 'Endgame' },
+  { to: '/todos', label: 'Todos' }
 ]
 
 //동적인 페이지 관리
