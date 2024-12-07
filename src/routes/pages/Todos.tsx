@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import TodoItem from '../../components/todos/TodoItem'
 import { useCreateTodo, useFetchTodos } from '../../hooks/todos'
+import TodoFilters from '../../components/todos/TodoFilters'
+import TodoActions from '../../components/todos/TodoActions'
 
 const Todos = () => {
   const [title, setTitle] = useState('')
@@ -30,6 +32,8 @@ const Todos = () => {
           {isPending ? '로딩' : '할일 추가'}
         </button>
       </div>
+      <TodoFilters />
+      <TodoActions />
       <ul>
         {todos?.map(todo => (
           <TodoItem
